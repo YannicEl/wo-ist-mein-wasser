@@ -1,0 +1,24 @@
+org: yannicellhotka
+app: wo-ist-mein-wasser
+service: wo-ist-mein-wasser
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  profile: yannic-serverless
+  runtime: nodejs14.x
+  region: eu-central-1
+  environment:
+    BOT_TOKEN:  ${param:BOT_TOKEN}
+
+functions:
+  newsbot:
+    handler: src/srcBot.handler
+    events:
+      - http:
+          path: bot
+          method: post
+          cors: true
